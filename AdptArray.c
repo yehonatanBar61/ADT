@@ -3,11 +3,6 @@
 #include "AdptArray.h"
 #include "book.h"
 
-/////////////////////////////////////////////////////////////
-/*
-Code by Ilan Meir Souffir : 342615648
-With the help of the Tirgul ADT from the C course, the exam of C (moad a, 2023).
-*/
 
 
 typedef struct AdptArray_ {
@@ -22,6 +17,7 @@ typedef struct AdptArray_ {
 
 PAdptArray CreateAdptArray(COPY_FUNC copyFunc, DEL_FUNC delFunc, PRINT_FUNC printFunc){
     PAdptArray newParray = (PAdptArray) malloc(sizeof(AdptArray));
+    // Check for allocation failure
     if (newParray == NULL) 
         return NULL;
     newParray->sizeArray = 0;
@@ -36,11 +32,11 @@ void DeleteAdptArray(PAdptArray arryP){
     if (arryP == NULL) 
         return;
     for (int i = 0; i < arryP->sizeArray; ++i) {
-        if (arryP->pElemArr[i] != NULL) {
+        if (arryP->pElemArr[i] != NULL) 
             arryP->delFunc(arryP->pElemArr[i]);     
-        }else{
+        else
             free(arryP->pElemArr[i]);
-        }
+        
     }
     free(arryP->pElemArr);
     free(arryP);
